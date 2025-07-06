@@ -6,8 +6,7 @@ import (
 )
 
 func Trait(s string) string {
-
-	fixed := clean(strings.Split(s, " "))
+	fixed := strings.Fields(s)
 	fmt.Println(fixed)
 
 	fmt.Println(len(fixed))
@@ -20,14 +19,22 @@ func Trait(s string) string {
 
 	return strings.Join(fixed, " ")
 }
-func clean(clea []string) []string {
-	filtred := []string{}
-	for _, str := range clea {
-		
-		if str != "" {
-			filtred = append(filtred, str)
+
+func Traited(s string) string {
+	str := ""
+	var new string
+	for i, c := range s {
+		if c != '\n' {
+			new += string(c)
 		}
-	
+		if c == '\n' {
+			str += Trait(new) + "\n"
+			new = ""
+			continue
+		}
+		if c != '\n' && i == len(s)-1 {
+			str += Trait(new)
+		}
 	}
-	return filtred
+	return str
 }

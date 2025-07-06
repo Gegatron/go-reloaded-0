@@ -14,7 +14,7 @@ func Punc(strs []string) []string {
 			s += string(c)
 		}
 	}
-	strs = strings.Split(s, " ")
+	strs = strings.Fields(s)
 	for i := 0; i < len(strs); i++ {
 		if i != 0 && AllPunc(strs[i]) {
 			if strs[i-1][len(strs[i-1])-1] == '\n' {
@@ -22,7 +22,7 @@ func Punc(strs []string) []string {
 			}
 			strs[i-1] = strs[i-1] + strs[i]
 			strs[i] = ""
-			strs = clean(strs)
+			strs = strings.Fields(strings.Join(strs," "))
 			i--
 		}
 	}

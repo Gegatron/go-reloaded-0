@@ -29,8 +29,8 @@ func main() {
 		fmt.Println("error:", err)
 		return
 	}
-
-	reloaded:= goreloaded.Trait(string(str))
+	
+	reloaded:= goreloaded.Traited(string(str))
 	
 	err = os.WriteFile(filenames[2], []byte(reloaded), 0o644)
 	if err != nil {
