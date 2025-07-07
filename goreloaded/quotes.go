@@ -54,6 +54,6 @@ func Quotes(reloaded []string) []string {
 			str += s[index:]
 		}
 	}
-	reloaded = strings.Split(str," ")
-	return reloaded
+	
+	return strings.Fields(str)
 }

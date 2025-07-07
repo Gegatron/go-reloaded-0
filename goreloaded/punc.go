@@ -7,8 +7,8 @@ import (
 func Punc(strs []string) []string {
 	str := strings.Join(strs, " ")
 	s := ""
-	for i, c := range str {
-		if i != len(str)-1 && IsPunc(c) && str[i+1] != ' ' {
+	for _, c := range str {
+		if IsPunc(c) {
 			s += string(c) + " "
 		} else {
 			s += string(c)
@@ -17,9 +17,6 @@ func Punc(strs []string) []string {
 	strs = strings.Fields(s)
 	for i := 0; i < len(strs); i++ {
 		if i != 0 && AllPunc(strs[i]) {
-			if strs[i-1][len(strs[i-1])-1] == '\n' {
-				continue
-			}
 			strs[i-1] = strs[i-1] + strs[i]
 			strs[i] = ""
 			strs = strings.Fields(strings.Join(strs," "))

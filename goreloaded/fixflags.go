@@ -31,7 +31,7 @@ func FixFlags(c []string) []string {
 			continue
 		}
 		if IsMultiFlag(c[i] + " " + c[i+1]) {
-			n, err := GetNumber(c[i+1])
+			n, err := strconv.Atoi(c[i+1][:len(c[i+1])-1])
 			if err != nil {
 				continue
 			}
@@ -63,21 +63,6 @@ func FixFlags(c []string) []string {
 	return c
 }
 
-func GetNumber(s string) (int, error) {
-	new := ""
-	b := false
-	for i := 0; i < len(s); i++ {
-		if !b && (s[i] == '-' || (s[i] >= '0' && s[i] <= '9')) && new == "" {
-			new += string(s[i])
-			b = true
-			continue
-		}
-		if b && i != len(s)-1 {
-			new += string(s[i])
-		}
-	}
-	return strconv.Atoi(new)
-}
 
 func Capitalize(s string) string {
 	new := []rune(s)
