@@ -7,29 +7,30 @@ import (
 func Quotes(reloaded []string) []string {
 	s := strings.Join(reloaded, " ")
 	var open bool
-	var index int
+	index := 0
 	var str string
 	for i, c := range s {
-		if i!=len(s)-1 {
-			if !open  {
-			if c == '\'' &&  (s[i+1] == ' ' || s[i-1] == ' ' || s[i+1] == '\'' || s[i-1] == '\''){
-				open = true
-				index = i
-			} else {
-				str += string(c)
+		if i != len(s)-1 {
+			if !open {
+				if c == '\'' && (s[i+1] == ' ' || s[i-1] == ' ' || s[i+1] == '\'' || s[i-1] == '\'') {
+					str += s[index:i]
+					open = true
+					index = i
+				}
+			} else if open && c == '\'' && (s[i+1] == ' ' || s[i-1] == ' ' || s[i+1] == '\'' || s[i-1] == '\'') {
+				str += " " + "'" + strings.TrimSpace(s[index+1:i]) + "'" + " "
+				open = false
+				index = i + 1
+				continue
 			}
-		} else if open && c == '\'' {
-			str += " " + "'" + s[index:i] + "'" + " "
-			open = false
-			continue
 		}
+		if i == len(s)-1 {
+			if open && c == '\'' {
+				str += "'" + strings.TrimSpace(s[index+1:len(s)-1]) + "'"
+			} else {
+				str += s[index:]
+			}
 		}
-		
-		if i == len(s)-1 && open {
-			str += s[index:]
-		}
-
 	}
-
 	return strings.Fields(str)
 }

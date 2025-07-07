@@ -16,7 +16,6 @@ func ATooAn(s []string) []string {
 				s[i] = "An"
 			}
 		}
-
 	}
 	return s
 }
