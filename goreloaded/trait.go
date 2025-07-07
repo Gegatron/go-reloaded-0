@@ -7,9 +7,11 @@ import (
 func Trait(s string) string {
 	fixed := strings.Fields(s)
 	fixed = FixFlags(fixed)
+	
 	fixed = Punc(fixed)
-	fixed = ATooAn(fixed)
 	fixed = Quotes(fixed)
+	
+	fixed = ATooAn(fixed)
 	return strings.Join(fixed, " ")
 }
 
