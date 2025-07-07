@@ -28,9 +28,11 @@ func Traited(s string) string {
 			new += string(c)
 		}
 		if c == '\n' {
-			str += Trait(new) + "\n"
-			new = ""
-			continue
+			if Trait(new) != "" {
+				str += Trait(new) + "\n"
+				new = ""
+				continue
+			}
 		}
 		if c != '\n' && i == len(s)-1 {
 			str += Trait(new)

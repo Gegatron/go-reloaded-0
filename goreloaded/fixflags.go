@@ -93,3 +93,7 @@ func ToBin(s string) string {
 	}
 	return strconv.Itoa(int(bin))
 }
+
+func IsMultiFlag(s string) bool {
+	return (strings.HasPrefix(s, "(low,") || strings.HasPrefix(s, "(cap,") || strings.HasPrefix(s, "(up,")) && s[len(s)-1] == ')'
+}

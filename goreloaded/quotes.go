@@ -6,54 +6,30 @@ import (
 
 func Quotes(reloaded []string) []string {
 	s := strings.Join(reloaded, " ")
-	index := 0
-	str := ""
-	b := true
+	var open bool
+	var index int
+	var str string
 	for i, c := range s {
-		if !b && c == '\n' {
-			str += strings.TrimSpace(s[index:i])
-			b = true
-		}
-		if b && c == '\'' {
-			if i == len(s)-1 {
+		if i!=len(s)-1 {
+			if !open  {
+			if c == '\'' &&  (s[i+1] == ' ' || s[i-1] == ' ' || s[i+1] == '\'' || s[i-1] == '\''){
+				open = true
+				index = i
+			} else {
 				str += string(c)
-				continue
 			}
-			if i == 0 {
-				str += " "
-				index = i
-				b = false
-				continue
-			}
-			if b && s[i+1] == ' ' || s[i-1] == ' ' || (s[i+1] == '\'' || s[i-1] == '\'') {
-				for j := i + 1; j < len(s); j++ {
-					if s[j] == '\n' {
-						break
-					}
-					if s[j] == '\'' {
-						str += " "
-					}
-				}
-				index = i
-				b = false
-				continue
-			}
-		}
-		if !b && c == '\'' {
-			if i != len(s)-1 && (s[i+1] == ' ' || s[i-1] == ' ' || (s[i+1] == '\'' || s[i-1] == '\'')) {
-				str += "'" + strings.TrimSpace(s[index+1:i]) + "'" + " "
-				b = true
-
-			} else if i == len(s)-1 {
-				str += "'" + strings.TrimSpace(s[index+1:i]) + "'"
-			}
+		} else if open && c == '\'' {
+			str += " " + "'" + s[index:i] + "'" + " "
+			open = false
 			continue
-		} else if b {
-			str += string(c)
-		} else if !b && i == len(s)-1 {
+		}
+		}
+		
+		if i == len(s)-1 && open {
 			str += s[index:]
 		}
+
 	}
-	
+
 	return strings.Fields(str)
 }
