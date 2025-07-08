@@ -1,6 +1,0 @@
-name: Ayoub
-age: 25
-gender: Mr
-subject: TESTTEST
-dr. ahmed
-Hello There
