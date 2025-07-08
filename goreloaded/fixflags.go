@@ -1,6 +1,7 @@
 package goreloaded
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 	"unicode"
@@ -33,6 +34,7 @@ func FixFlags(c []string) []string {
 		if IsMultiFlag(c[i] + " " + c[i+1]) {
 			n, err := strconv.Atoi(c[i+1][:len(c[i+1])-1])
 			if err != nil {
+				fmt.Println("Error:",err)
 				continue
 			}
 			if n < 0 {
@@ -81,6 +83,7 @@ func Capitalize(s string) string {
 func ToHex(s string) string {
 	hex, err := strconv.ParseInt(s, 16, 64)
 	if err != nil {
+		fmt.Println("Error:",err)
 		return s
 	}
 	return strconv.Itoa(int(hex))
@@ -89,6 +92,7 @@ func ToHex(s string) string {
 func ToBin(s string) string {
 	bin, err := strconv.ParseInt(s, 2, 64)
 	if err != nil {
+		fmt.Println("Error:",err)
 		return s
 	}
 	return strconv.Itoa(int(bin))

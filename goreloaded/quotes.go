@@ -8,16 +8,19 @@ func Quotes(reloaded []string) []string {
 	s := strings.Join(reloaded, " ")
 	var open bool
 	index := 0
+	if len(s)==1 {
+		return strings.Fields(s)
+	}
 	var str string
-	for i, c := range s {
+	for i:=0;i<len(s);i++ {
 		if i != len(s)-1 && i != 0 {
 			if !open {
-				if c == '\'' && (s[i+1] == ' ' || s[i-1] == ' ' || s[i+1] == '\'' || s[i-1] == '\'' || IsPunc(rune(s[i+1])) || IsPunc(rune(s[i-1]))) {
+				if s[i] == '\'' && (s[i+1] == ' ' || s[i-1] == ' ' || s[i+1] == '\'' || s[i-1] == '\'' || IsPunc(rune(s[i+1])) || IsPunc(rune(s[i-1]))) {
 					str += s[index:i]
 					open = true
 					index = i
 				}
-			} else if open && c == '\'' && (s[i+1] == ' ' || s[i-1] == ' ' || s[i+1] == '\'' || s[i-1] == '\'' || IsPunc(rune(s[i+1])) || IsPunc(rune(s[i-1]))) {
+			} else if open && s[i] == '\'' && (s[i+1] == ' ' || s[i-1] == ' ' || s[i+1] == '\'' || s[i-1] == '\'' || IsPunc(rune(s[i+1])) || IsPunc(rune(s[i-1]))) {
 				if IsPunc(rune(s[i+1])) || IsPunc(rune(s[i-1])) {
 					str += " " + "'" + strings.TrimSpace(s[index+1:i]) + "'"
 					open = false
@@ -30,14 +33,14 @@ func Quotes(reloaded []string) []string {
 				continue
 			}
 		} else if i == 0 {
-			if c == '\'' {
+			
+			if s[i] == '\'' {
 				str += s[index:i]
 				open = true
 				index = i
 			}
-		}
-		if i == len(s)-1 {
-			if open && c == '\'' {
+		}else if i == len(s)-1 {
+			if open && s[i] == '\'' {
 				str += " " + "'" + strings.TrimSpace(s[index+1:len(s)-1]) + "'"
 			} else {
 				str += s[index:]
